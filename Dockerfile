@@ -35,6 +35,9 @@ FROM python:3.9-slim
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
+# Atualiza pacotes do sistema para mitigar vulnerabilidades de segurança da imagem base
+RUN apt-get update && apt-get upgrade -y && rm -rf /var/lib/apt/lists/*
+
 # Segurança (Usuário Non-root):
 # Criação de um grupo e usuário de sistema sem privilégios para executar a aplicação.
 # Isso reduz o impacto de possíveis vulnerabilidades, pois a aplicação não rodará como root.
