@@ -24,6 +24,7 @@ COPY requirements.txt .
 
 # Instala as dependências dentro do ambiente virtual criado
 RUN pip install --no-cache-dir -r requirements.txt
+RUN opentelemetry-bootstrap -a install
 
 # ==========================================
 # Estágio 2: Produção (Imagem Final Enxuta)
@@ -66,4 +67,4 @@ USER appuser
 EXPOSE 8003
 
 # Comando para iniciar a aplicação usando o Gunicorn (servidor WSGI pronto para produção)
-CMD ["gunicorn", "--bind", "0.0.0.0:8003", "app:app"]
+CMD ["opentelemetry-instrument", "python", "app.py"]
